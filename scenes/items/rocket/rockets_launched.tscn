@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce1hixag4g21g"]
+
+[sub_resource type="GDScript" id="GDScript_ve8lr"]
+script/source = "extends Node2D
+
+signal kill(body)
+
+var rocket_scene = preload(\"res://scenes/items/rocket/rocket_launched.tscn\")
+var explosion_scene = preload(\"res://scenes/main/explosion.tscn\")
+
+var delay: bool = true
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	create_rocket()
+	rocket_out()
+
+
+func create_rocket():
+	if Globals.power_used and Globals.power_saved == 0 and delay:
+		$Timer_reset_delay.start()
+		delay = false
+		var rocket = rocket_scene.instantiate()
+		get_node(\"rockets\").add_child(rocket)
+		connection_signal(get_node(\"rockets\").get_child(get_node(\"rockets\").get_child_count() - 1))
+
+func connection_signal(body):
+	body.hit.connect(_on_rocket_signal)
+
+func _on_rocket_signal(body):
+	kill.emit(body)
+
+func rocket_out():
+	var rockets = get_node(\"rockets\").get_children()
+	for rocket in rockets:
+		if rocket.position.x > 2000:
+			rocket.queue_free()
+
+func _on_timer_reset_delay_timeout():
+	delay = true
+"
+
+[node name="rockets_launched" type="Node2D"]
+script = SubResource("GDScript_ve8lr")
+
+[node name="Timer_reset_delay" type="Timer" parent="."]
+wait_time = 0.01
+one_shot = true
+
+[node name="rockets" type="Node2D" parent="."]
+
+[node name="explosions" type="Node2D" parent="."]
+
+[connection signal="timeout" from="Timer_reset_delay" to="." method="_on_timer_reset_delay_timeout"]

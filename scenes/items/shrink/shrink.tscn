@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dj4b2abmxbo1a"]
+
+[ext_resource type="Script" path="res://scenes/items/rocket/rocket.gd" id="1_utupn"]
+[ext_resource type="Texture2D" uid="uid://drucg4yepbuey" path="res://elements/light/78228-light-luz-wallpaper-destello-desktop-download-free-image.png" id="2_6swx8"]
+[ext_resource type="Texture2D" uid="uid://glysowt8xjtt" path="res://elements/car_player/car_mid_1.png" id="3_tx504"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lig7p"]
+
+[node name="shrink" type="Area2D"]
+collision_layer = 16
+script = ExtResource("1_utupn")
+
+[node name="light" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_6swx8")
+
+[node name="shrink" type="Node2D" parent="."]
+texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="shrink"]
+modulate = Color(1, 1, 1, 0.403922)
+texture = ExtResource("3_tx504")
+
+[node name="Sprite2D2" type="Sprite2D" parent="shrink"]
+modulate = Color(1, 1, 1, 0.615686)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_tx504")
+
+[node name="Sprite2D3" type="Sprite2D" parent="shrink"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_tx504")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+scale = Vector2(7.5, 5)
+shape = SubResource("RectangleShape2D_lig7p")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

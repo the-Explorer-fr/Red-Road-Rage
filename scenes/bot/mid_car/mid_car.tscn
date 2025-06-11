@@ -1,0 +1,121 @@
+[gd_scene load_steps=8 format=3 uid="uid://bkjvj65lgsgml"]
+
+[ext_resource type="Script" path="res://scenes/bot/mid_car/mid_car.gd" id="1_ofrfc"]
+[ext_resource type="Texture2D" uid="uid://bhw1cf1p2lp5n" path="res://elements/car_bot/car_mid/car_1/car_mid_2.png" id="2_2niil"]
+[ext_resource type="Texture2D" uid="uid://bo3m4nnmtcpaq" path="res://elements/car_bot/car_mid/car_1/car_mid_1.png" id="2_61nlj"]
+[ext_resource type="Texture2D" uid="uid://f13t522yaycf" path="res://elements/car_bot/car_mid/car_1/car_mid_3.png" id="4_syhv6"]
+[ext_resource type="Texture2D" uid="uid://co06bpwq36dmr" path="res://elements/car_bot/car_mid/car_1/car_mid_4.png" id="5_mcm73"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hj5xi"]
+size = Vector2(650, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivgd0"]
+size = Vector2(1100, 200)
+
+[node name="mid car" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_ofrfc")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="red_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("2_61nlj")
+
+[node name="grey_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("2_2niil")
+
+[node name="blue_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("4_syhv6")
+
+[node name="white_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("5_mcm73")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-105, -56, -105, 56, -91, 56, -91, 70, -49, 70, -49, 56, 21, 56, 21, 70, 63, 70, 63, 56, 91, 56, 91, 42, 105, 42, 105, -42, 91, -42, 91, -56, 63, -56, 63, -70, 21, -70, 21, -56, -49, -56, -49, -70, -91, -70, -91, -56)
+
+[node name="Area2D_car" type="Area2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D_car"]
+polygon = PackedVector2Array(-105, -56, -105, 56, -91, 56, -91, 70, -49, 70, -49, 56, 21, 56, 21, 70, 63, 70, 63, 56, 91, 56, 91, 42, 105, 42, 105, -42, 91, -42, 91, -56, 63, -56, 63, -70, 21, -70, 21, -56, -49, -56, -49, -70, -91, -70, -91, -56)
+
+[node name="Area2D_front" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_front"]
+offset_left = 111.0
+offset_top = -79.0
+offset_right = 761.0
+offset_bottom = 81.0
+color = Color(1, 1, 1, 0.694118)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_front"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(435, 0)
+shape = SubResource("RectangleShape2D_hj5xi")
+
+[node name="Area2D_left" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_left"]
+offset_left = -450.0
+offset_top = -323.0
+offset_right = 650.0
+offset_bottom = -123.0
+color = Color(1, 1, 1, 0.635294)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_left"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(100, -225)
+shape = SubResource("RectangleShape2D_ivgd0")
+
+[node name="Area2D_right" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_right"]
+offset_left = -449.0
+offset_top = 126.0
+offset_right = 651.0
+offset_bottom = 326.0
+color = Color(1, 1, 1, 0.690196)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_right"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(100, 225)
+shape = SubResource("RectangleShape2D_ivgd0")
+
+[node name="front" type="Marker2D" parent="."]
+position = Vector2(105, 0)
+
+[node name="back" type="Marker2D" parent="."]
+position = Vector2(-105, 0)

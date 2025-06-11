@@ -1,0 +1,161 @@
+[gd_scene load_steps=13 format=3 uid="uid://dde5bluqa6ikt"]
+
+[ext_resource type="Script" path="res://scenes/bot/fast_car/fast_car.gd" id="1_v87no"]
+[ext_resource type="Texture2D" uid="uid://dxfbhlqmfah14" path="res://elements/car_bot/car_fast/car_1/car_fast_1.png" id="2_dnrtv"]
+[ext_resource type="Texture2D" uid="uid://e2n66bkiyb3m" path="res://elements/car_bot/car_fast/car_1/car_fast_2.png" id="3_fxs2i"]
+[ext_resource type="Texture2D" uid="uid://8gpl8s1k8say" path="res://elements/car_bot/car_fast/car_1/fast_car_7/fast_car_7.png" id="4_3ne8y"]
+[ext_resource type="Texture2D" uid="uid://ci6oq12oolp0" path="res://elements/car_bot/car_fast/car_1/2za_5.png" id="4_w4k5w"]
+[ext_resource type="Texture2D" uid="uid://dh7uyf2s05yp0" path="res://elements/car_bot/car_fast/car_1/fast_car_7/fast_car_7_1.png" id="5_avmjc"]
+[ext_resource type="Texture2D" uid="uid://o0cdu8y8qjpc" path="res://elements/car_bot/car_fast/car_1/car_fast_4.png" id="5_h6yet"]
+[ext_resource type="Texture2D" uid="uid://46b1i4bvpav8" path="res://elements/car_bot/car_fast/car_1/car_fast_3.png" id="6_6chio"]
+[ext_resource type="Texture2D" uid="uid://bm4jtanyf68ep" path="res://elements/car_bot/car_fast/car_1/fast_car_7/fast_car_7_2.png" id="6_gweew"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_manxa"]
+animations = [{
+"frames": [{
+"duration": 4.5,
+"texture": ExtResource("4_3ne8y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_avmjc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3ne8y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_gweew")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jv3dn"]
+size = Vector2(725, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6dwo"]
+size = Vector2(1450, 200)
+
+[node name="fast_car" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_v87no")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="blue_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("2_dnrtv")
+
+[node name="black_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_fxs2i")
+
+[node name="green_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("4_w4k5w")
+
+[node name="purple_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("5_h6yet")
+
+[node name="red_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("6_6chio")
+
+[node name="miata" type="AnimatedSprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+sprite_frames = SubResource("SpriteFrames_manxa")
+autoplay = "default"
+frame_progress = 0.0748276
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+scale = Vector2(1.4, 1.4)
+polygon = PackedVector2Array(-60, -50, -60, -40, -70, -40, -70, -30, -80, -30, -80, 30, -70, 30, -70, 40, -60, 40, -60, 50, -30, 50, -30, 40, 20, 40, 20, 50, 50, 50, 50, 40, 70, 40, 70, 30, 80, 30, 80, -30, 70, -30, 70, -40, 50, -40, 50, -50, 20, -50, 20, -40, -30, -40, -30, -50)
+
+[node name="Area2D_car" type="Area2D" parent="."]
+light_mask = 2
+visibility_layer = 0
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D_car"]
+scale = Vector2(1.4, 1.4)
+polygon = PackedVector2Array(-60, -50, -60, -40, -70, -40, -70, -30, -80, -30, -80, 30, -70, 30, -70, 40, -60, 40, -60, 50, -30, 50, -30, 40, 20, 40, 20, 50, 50, 50, 50, 40, 70, 40, 70, 30, 80, 30, 80, -30, 70, -30, 70, -40, 50, -40, 50, -50, 20, -50, 20, -40, -30, -40, -30, -50)
+
+[node name="Area2D_front" type="Area2D" parent="."]
+visible = false
+light_mask = 2
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_front"]
+offset_left = 115.0
+offset_top = -80.0
+offset_right = 840.0
+offset_bottom = 80.0
+color = Color(1, 0.258824, 1, 0.615686)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_front"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(480, 0)
+shape = SubResource("RectangleShape2D_jv3dn")
+
+[node name="Area2D_left" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_left"]
+offset_left = -334.0
+offset_top = -324.0
+offset_right = 1116.0
+offset_bottom = -124.0
+color = Color(1, 0.435294, 1, 0.635294)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_left"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(390, -225)
+shape = SubResource("RectangleShape2D_k6dwo")
+
+[node name="Area2D_right" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_right"]
+offset_left = -340.0
+offset_top = 125.0
+offset_right = 1110.0
+offset_bottom = 325.0
+color = Color(1, 0.439216, 1, 0.690196)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_right"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(390, 225)
+shape = SubResource("RectangleShape2D_k6dwo")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="front" type="Marker2D" parent="."]
+position = Vector2(112, 0)
+
+[node name="back" type="Marker2D" parent="."]
+position = Vector2(-112, 0)

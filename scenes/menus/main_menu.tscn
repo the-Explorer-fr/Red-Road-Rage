@@ -1,0 +1,108 @@
+[gd_scene load_steps=10 format=3 uid="uid://cvpwrs5xvexu6"]
+
+[ext_resource type="Script" path="res://scenes/menus/main_menu.gd" id="1_5xrab"]
+[ext_resource type="PackedScene" uid="uid://b37442cxre0tj" path="res://scenes/background/background.tscn" id="1_8pcbt"]
+[ext_resource type="Texture2D" uid="uid://glysowt8xjtt" path="res://elements/car_player/car_mid_1.png" id="3_kf3c3"]
+[ext_resource type="Texture2D" uid="uid://bguh1bee06jbw" path="res://elements/Flame/Flame_1/flame_1.png" id="4_3snfd"]
+[ext_resource type="Texture2D" uid="uid://deb63gmu45kwo" path="res://elements/Flame/Flame_1/flame_2.png" id="5_acku6"]
+[ext_resource type="FontFile" uid="uid://d2tdghn42yyl0" path="res://font/SuperMario256.ttf" id="5_gntav"]
+[ext_resource type="AudioStream" uid="uid://hu57quydv8ei" path="res://elements/music/menu.mp3" id="7_n0laa"]
+
+[sub_resource type="Theme" id="Theme_yaw81"]
+default_font = ExtResource("5_gntav")
+default_font_size = 90
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vixa5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_3snfd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_acku6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5xrab")
+
+[node name="background" parent="." instance=ExtResource("1_8pcbt")]
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 1000.0
+offset_top = 312.0
+offset_right = 1450.0
+offset_bottom = 746.0
+scale = Vector2(1.6, 1.6)
+
+[node name="start_button" type="Button" parent="VBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../score_menu_button")
+theme = SubResource("Theme_yaw81")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Play"
+flat = true
+icon_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="score_menu_button" type="Button" parent="VBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+focus_neighbor_top = NodePath("../start_button")
+focus_neighbor_bottom = NodePath("../quit_button")
+theme = SubResource("Theme_yaw81")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Scores"
+flat = true
+icon_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="quit_button" type="Button" parent="VBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+focus_neighbor_top = NodePath("../score_menu_button")
+theme = SubResource("Theme_yaw81")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "quit"
+flat = true
+icon_alignment = 1
+
+[node name="player" type="Node2D" parent="."]
+position = Vector2(350, 645)
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_kf3c3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player"]
+texture_filter = 1
+position = Vector2(-126, -3)
+scale = Vector2(1.4, 1.4)
+sprite_frames = SubResource("SpriteFrames_vixa5")
+autoplay = "default"
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_n0laa")
+volume_db = -15.0
+
+[connection signal="pressed" from="VBoxContainer2/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/score_menu_button" to="." method="_on_score_menu_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/quit_button" to="." method="_on_quit_button_pressed"]

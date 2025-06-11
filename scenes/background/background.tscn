@@ -1,0 +1,176 @@
+[gd_scene load_steps=6 format=3 uid="uid://b37442cxre0tj"]
+
+[ext_resource type="Script" path="res://scenes/background/background.gd" id="1_mprn1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_js4em"]
+size = Vector2(6, 790)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhb1h"]
+size = Vector2(5, 790)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hjbvv"]
+size = Vector2(1920, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjxtn"]
+size = Vector2(1920, 8)
+
+[node name="background" type="Node2D"]
+light_mask = 4
+script = ExtResource("1_mprn1")
+
+[node name="route" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.482353, 0.482353, 0.564706, 1)
+metadata/_edit_lock_ = true
+
+[node name="line" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 30)
+offset_top = 220.0
+offset_right = 1920.0
+offset_bottom = 250.0
+metadata/_edit_lock_ = true
+
+[node name="line2" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 30)
+offset_top = 1040.0
+offset_right = 1920.0
+offset_bottom = 1070.0
+metadata/_edit_lock_ = true
+
+[node name="little lines" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="little line" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_top = 500.0
+offset_right = 160.0
+offset_bottom = 520.0
+metadata/_edit_lock_ = true
+
+[node name="little line8" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_top = 770.0
+offset_right = 160.0
+offset_bottom = 790.0
+metadata/_edit_lock_ = true
+
+[node name="little line2" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 320.0
+offset_top = 500.0
+offset_right = 480.0
+offset_bottom = 520.0
+metadata/_edit_lock_ = true
+
+[node name="little line9" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 320.0
+offset_top = 770.0
+offset_right = 480.0
+offset_bottom = 790.0
+metadata/_edit_lock_ = true
+
+[node name="little line3" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 640.0
+offset_top = 500.0
+offset_right = 800.0
+offset_bottom = 520.0
+metadata/_edit_lock_ = true
+
+[node name="little line10" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 640.0
+offset_top = 770.0
+offset_right = 800.0
+offset_bottom = 790.0
+metadata/_edit_lock_ = true
+
+[node name="little line4" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 960.0
+offset_top = 500.0
+offset_right = 1120.0
+offset_bottom = 520.0
+metadata/_edit_lock_ = true
+
+[node name="little line11" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 960.0
+offset_top = 770.0
+offset_right = 1120.0
+offset_bottom = 790.0
+metadata/_edit_lock_ = true
+
+[node name="little line5" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 1280.0
+offset_top = 500.0
+offset_right = 1440.0
+offset_bottom = 520.0
+metadata/_edit_lock_ = true
+
+[node name="little line12" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 1280.0
+offset_top = 770.0
+offset_right = 1440.0
+offset_bottom = 790.0
+metadata/_edit_lock_ = true
+
+[node name="little line6" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 1600.0
+offset_top = 500.0
+offset_right = 1760.0
+offset_bottom = 520.0
+metadata/_edit_lock_ = true
+
+[node name="little line13" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 1600.0
+offset_top = 770.0
+offset_right = 1760.0
+offset_bottom = 790.0
+metadata/_edit_lock_ = true
+
+[node name="little line7" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 1920.0
+offset_top = 500.0
+offset_right = 2080.0
+offset_bottom = 520.0
+metadata/_edit_lock_ = true
+
+[node name="little line14" type="ColorRect" parent="little lines"]
+custom_minimum_size = Vector2(160, 20)
+offset_left = 1920.0
+offset_top = 770.0
+offset_right = 2080.0
+offset_bottom = 790.0
+metadata/_edit_lock_ = true
+
+[node name="collisions" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisions"]
+position = Vector2(-3, 645)
+shape = SubResource("RectangleShape2D_js4em")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="collisions"]
+position = Vector2(1922.5, 645)
+shape = SubResource("RectangleShape2D_jhb1h")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="collisions"]
+position = Vector2(960, 1045)
+shape = SubResource("RectangleShape2D_hjbvv")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="collisions"]
+position = Vector2(960, 246)
+shape = SubResource("RectangleShape2D_gjxtn")
+metadata/_edit_lock_ = true

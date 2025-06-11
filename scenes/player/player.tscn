@@ -1,0 +1,320 @@
+[gd_scene load_steps=24 format=3 uid="uid://dqaew30jkmb1x"]
+
+[ext_resource type="Texture2D" uid="uid://glysowt8xjtt" path="res://elements/car_player/car_mid_1.png" id="2_5urlh"]
+[ext_resource type="Texture2D" uid="uid://cs7kbxiqgj8ck" path="res://elements/car_player/mcQueen.png" id="2_h0qr8"]
+[ext_resource type="Texture2D" uid="uid://uoifgnwtjydc" path="res://elements/car_player/tank.png" id="2_i2gy0"]
+[ext_resource type="Texture2D" uid="uid://bguh1bee06jbw" path="res://elements/Flame/Flame_1/flame_1.png" id="3_re1nu"]
+[ext_resource type="Texture2D" uid="uid://cy6awfi6lhrij" path="res://elements/explosion/explosion_1/1.png" id="4_jkmgu"]
+[ext_resource type="Texture2D" uid="uid://deb63gmu45kwo" path="res://elements/Flame/Flame_1/flame_2.png" id="4_xy5wp"]
+[ext_resource type="Texture2D" uid="uid://bhd7c4tux0ujk" path="res://elements/explosion/explosion_1/2.png" id="5_n3ix5"]
+[ext_resource type="Texture2D" uid="uid://4w7sl8jhm0od" path="res://elements/explosion/explosion_1/3.png" id="6_skxb7"]
+[ext_resource type="Texture2D" uid="uid://cgjclg0tyxopn" path="res://elements/explosion/explosion_1/4.png" id="7_vodg2"]
+[ext_resource type="Texture2D" uid="uid://d0m74tvf74go0" path="res://elements/explosion/explosion_1/5.png" id="8_2g0dj"]
+[ext_resource type="Texture2D" uid="uid://ch45mp2l5ms1r" path="res://elements/explosion/explosion_1/6.png" id="9_kwigk"]
+[ext_resource type="Texture2D" uid="uid://bhpp4a2rdflm4" path="res://elements/explosion/explosion_1/7.png" id="10_vj5d6"]
+[ext_resource type="Texture2D" uid="uid://cmcqmhaml823l" path="res://elements/explosion/explosion_1/8.png" id="11_6iwjs"]
+[ext_resource type="AudioStream" uid="uid://kunxbik3a458" path="res://elements/sound/explosion.mp3" id="12_lwq74"]
+[ext_resource type="AudioStream" uid="uid://cuo6i0y8rf3v3" path="res://elements/music/tank_music.mp3" id="15_j65if"]
+[ext_resource type="AudioStream" uid="uid://cttolcqgds2lq" path="res://elements/sound/shrink.mp3" id="16_u323j"]
+[ext_resource type="AudioStream" uid="uid://bdfayjedru72g" path="res://elements/sound/enlarge.mp3" id="17_vc1i3"]
+
+[sub_resource type="GDScript" id="GDScript_brwhs"]
+script/source = "extends CharacterBody2D
+
+signal player_dead
+signal stop_timer
+signal kill(body)
+
+@export var max_speed: int = 800
+@export var slow_speed: int = 300
+var speed: int = max_speed
+
+var alive: bool = true
+var shrink: bool = false
+var enlarge: bool = false
+var tank: bool = false
+
+func _ready():
+	position = Vector2(350, 645)
+
+func _process(delta):
+	Globals.position_player = position
+	if alive:
+		move(delta)
+		power_up()
+	if shrink:
+		player_shrink(delta)
+	elif enlarge:
+		player_enlarge(delta)
+
+func move(delta):
+	# input 
+	var direction = Input.get_vector(\"left\", \"right\", \"up\", \"down\")
+	if Input.is_action_pressed(\"slow\"):
+		speed = slow_speed
+	else:
+		speed = max_speed
+	position += direction * speed * delta
+	move_and_slide()
+
+func player_shrink(delta):
+	if $\".\".scale.x >= 0.3:
+		$\".\".scale -= Vector2(0.7, 0.7) * delta
+	else:
+		$\".\".scale.x = 0.3
+		shrink = false
+		$Timers/timer_shrink.start()
+
+func player_enlarge(delta):
+	if $\".\".scale.x <= 1:
+		$\".\".scale += Vector2(0.7, 0.7) * delta
+	else:
+		$\".\".scale.x = 1
+		enlarge = false
+
+func _on_timer_shrink_timeout():
+	$sounds/enlarge.play()
+	enlarge = true
+
+func tank_transform():
+	if not tank:
+		$sounds/tank_music.play()
+		$sprites/tank.show()
+		$sprites/normal.hide()
+	else:
+		$tank_animation.stop()
+		$Timers/timer_tank.stop()
+		$Timers/timer_end_tank.stop()
+	$Timers/timer_tank.start()
+	tank = true
+
+func _on_timer_tank_timeout():
+	$Timers/timer_end_tank.start()
+	$tank_animation.play(\"blink\")
+
+func _on_timer_end_tank_timeout():
+	$sounds/tank_music.stop()
+	$sprites/normal.show()
+	$sprites/tank.hide()
+	tank = false
+
+func power_up():
+	if Input.is_action_just_pressed(\"power_up\"):
+		if Globals.power_saved != -1:
+			Globals.power_used = true
+			Globals.timer_start()
+			if Globals.power_saved == 1:
+				$Timers/timer_shrink.stop()
+				$sounds/shrink.play()
+				$sounds/enlarge.stop()
+				enlarge = false
+				shrink = true
+			elif Globals.power_saved == 2:
+				tank_transform()
+
+func _disable_collision_shapes():
+	$CollisionPolygon2D.disabled = true
+	$Area2D/CollisionPolygon2D.disabled = true
+
+
+func _on_area_2d_body_entered(body):
+	if tank:
+		kill.emit(body)
+	else:
+		stop_timer.emit()
+		alive = false
+		call_deferred(\"_disable_collision_shapes\")
+		$sprites/mcqueen.hide()
+		$sprites/normal.hide()
+		$sprites/flame.hide()
+		$sprites/explosion_sprite.show()
+		$sprites/explosion_sprite.play()
+		$sounds/explosion_sound.play()
+		$Timers/timer_dead.start()
+
+
+func _on_explosion_animation_finished():
+	$sprites/explosion_sprite.hide()
+
+
+func _on_timer_dead_timeout():
+	player_dead.emit()
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eyijx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_re1nu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xy5wp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w4463"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_jkmgu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_n3ix5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_skxb7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vodg2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_2g0dj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_kwigk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vj5d6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_6iwjs")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="Animation" id="Animation_il7vm"]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprites/tank:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.627451), Color(1, 1, 1, 1), Color(1, 1, 1, 0.627451), Color(1, 1, 1, 1), Color(1, 1, 1, 0.627451), Color(1, 1, 1, 1), Color(1, 1, 1, 0.627451), Color(1, 1, 1, 1), Color(1, 1, 1, 0.627451), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t1ahp"]
+resource_name = "blink"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprites/tank:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2),
+"transitions": PackedFloat32Array(9.91516e-05, 3.88964e-05, 6.77221e-05, 5.50075e-05, 8.33762e-05, 9.25112e-05, 7.25829e-05, 8.93602e-05, 9.91508e-05, 6.5415e-05, 5.13241e-05),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.564706), Color(1, 1, 1, 1), Color(1, 1, 1, 0.564706), Color(1, 1, 1, 1), Color(1, 1, 1, 0.564706), Color(1, 1, 1, 1), Color(1, 1, 1, 0.564706), Color(1, 1, 1, 1), Color(1, 1, 1, 0.564706), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5etsd"]
+_data = {
+"RESET": SubResource("Animation_il7vm"),
+"blink": SubResource("Animation_t1ahp")
+}
+
+[node name="player" type="CharacterBody2D"]
+collision_mask = 6
+script = SubResource("GDScript_brwhs")
+
+[node name="sprites" type="Node2D" parent="."]
+
+[node name="normal" type="Sprite2D" parent="sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("2_5urlh")
+
+[node name="tank" type="Sprite2D" parent="sprites"]
+visible = false
+texture_filter = 1
+position = Vector2(35, 0)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("2_i2gy0")
+
+[node name="mcqueen" type="Sprite2D" parent="sprites"]
+visible = false
+texture_filter = 1
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_h0qr8")
+
+[node name="flame" type="AnimatedSprite2D" parent="sprites"]
+texture_filter = 1
+position = Vector2(-126, -3)
+scale = Vector2(1.4, 1.4)
+sprite_frames = SubResource("SpriteFrames_eyijx")
+autoplay = "default"
+
+[node name="explosion_sprite" type="AnimatedSprite2D" parent="sprites"]
+visible = false
+texture_filter = 1
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_w4463")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-90, -69, -90, -55, -104, -55, -104, 55, -90, 55, -90, 69, -50, 69, -50, 55, 22, 55, 22, 69, 62, 69, 62, 55, 90, 55, 90, 41, 104, 41, 104, -41, 90, -41, 90, -55, 62, -55, 62, -69, 22, -69, 22, -55, -50, -55, -50, -69)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+scale = Vector2(1.05, 1.05)
+polygon = PackedVector2Array(-105, -56, -105, 56, -91, 56, -91.4286, 69.5238, -43.8095, 69.5238, -43.8095, 56.1905, 18.0952, 56.1905, 18.0952, 69.5238, 63, 70, 63, 56, 91, 56, 91, 42, 105, 42, 105, -42, 91, -42, 91, -56, 63, -56, 62.8572, -69.5238, 17.1429, -69.5238, 17.1429, -56.1905, -42.8571, -56.1905, -42.8571, -69.5238, -90.4762, -69.5238, -90.4762, -56.1905)
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="timer_shrink" type="Timer" parent="Timers"]
+wait_time = 5.0
+one_shot = true
+
+[node name="timer_tank" type="Timer" parent="Timers"]
+wait_time = 5.0
+one_shot = true
+
+[node name="timer_end_tank" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
+[node name="timer_dead" type="Timer" parent="Timers"]
+wait_time = 3.0
+one_shot = true
+
+[node name="tank_animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5etsd")
+}
+
+[node name="sounds" type="Node2D" parent="."]
+
+[node name="explosion_sound" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("12_lwq74")
+volume_db = -5.0
+
+[node name="tank_music" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("15_j65if")
+volume_db = -15.0
+
+[node name="shrink" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("16_u323j")
+volume_db = -10.0
+
+[node name="enlarge" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("17_vc1i3")
+volume_db = -10.0
+
+[connection signal="animation_finished" from="sprites/explosion_sprite" to="." method="_on_explosion_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timers/timer_shrink" to="." method="_on_timer_shrink_timeout"]
+[connection signal="timeout" from="Timers/timer_tank" to="." method="_on_timer_tank_timeout"]
+[connection signal="timeout" from="Timers/timer_end_tank" to="." method="_on_timer_end_tank_timeout"]
+[connection signal="timeout" from="Timers/timer_dead" to="." method="_on_timer_dead_timeout"]

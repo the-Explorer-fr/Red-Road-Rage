@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://3fuuecofy34d"]
+
+[ext_resource type="Script" path="res://scenes/items/power_up.gd" id="1_suwvc"]
+[ext_resource type="AudioStream" uid="uid://bo6vqslpk4ed6" path="res://elements/sound/recolt.mp3" id="2_0jskk"]
+
+[sub_resource type="GDScript" id="GDScript_l7iwm"]
+script/source = "extends Node2D
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	pass
+"
+
+[node name="power_up" type="Node2D"]
+script = ExtResource("1_suwvc")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_0jskk")
+volume_db = -10.0
+
+[node name="power_ups" type="Node2D" parent="."]
+script = SubResource("GDScript_l7iwm")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

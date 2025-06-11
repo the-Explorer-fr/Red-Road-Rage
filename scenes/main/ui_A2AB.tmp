@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1w7frtfpwgbn"]
+
+[ext_resource type="FontFile" uid="uid://d2tdghn42yyl0" path="res://font/SuperMario256.ttf" id="1_e1avu"]
+[ext_resource type="Script" path="res://scenes/main/ui_in_game.gd" id="1_sypm8"]
+
+[sub_resource type="Theme" id="Theme_eaflj"]
+default_font = ExtResource("1_e1avu")
+default_font_size = 60
+
+[sub_resource type="Theme" id="Theme_qcowa"]
+default_font = ExtResource("1_e1avu")
+default_font_size = 60
+
+[node name="UI_in_game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sypm8")
+
+[node name="Timer_time" type="Timer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -105.0
+offset_top = 30.0
+offset_right = 105.0
+offset_bottom = 136.0
+grow_horizontal = 2
+
+[node name="time_label" type="Label" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = SubResource("Theme_eaflj")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Time
+"
+horizontal_alignment = 1
+
+[node name="time_data_label" type="Label" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = SubResource("Theme_qcowa")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0 : 00"
+horizontal_alignment = 1
+
+[connection signal="timeout" from="Timer_time" to="." method="_on_timer_time_timeout"]

@@ -1,0 +1,121 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1w7frtfpwgbn"]
+
+[ext_resource type="FontFile" uid="uid://d2tdghn42yyl0" path="res://font/SuperMario256.ttf" id="1_e1avu"]
+[ext_resource type="Script" path="res://scenes/main/ui_in_game.gd" id="1_sypm8"]
+[ext_resource type="Texture2D" uid="uid://ciikfl8876kcf" path="res://elements/power_up/rocket.png" id="3_5jlfu"]
+[ext_resource type="Texture2D" uid="uid://glysowt8xjtt" path="res://elements/car_player/car_mid_1.png" id="4_wyc5r"]
+[ext_resource type="Texture2D" uid="uid://uoifgnwtjydc" path="res://elements/car_player/tank.png" id="5_0rb5s"]
+
+[sub_resource type="Theme" id="Theme_eaflj"]
+default_font = ExtResource("1_e1avu")
+default_font_size = 60
+
+[sub_resource type="Theme" id="Theme_qcowa"]
+default_font = ExtResource("1_e1avu")
+default_font_size = 60
+
+[node name="UI_in_game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sypm8")
+
+[node name="Timer_time" type="Timer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 140.0
+offset_top = 50.0
+offset_right = 350.0
+offset_bottom = 174.0
+grow_horizontal = 2
+
+[node name="time_label" type="Label" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = SubResource("Theme_eaflj")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Time
+"
+horizontal_alignment = 1
+
+[node name="time_data_label" type="Label" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = SubResource("Theme_qcowa")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0 : 00"
+horizontal_alignment = 1
+
+[node name="power_up" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -310.0
+offset_top = 110.0
+offset_right = -310.0
+offset_bottom = 110.0
+grow_horizontal = 2
+
+[node name="ColorRect2" type="ColorRect" parent="power_up"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -87.5
+offset_top = -87.5
+offset_right = 87.5
+offset_bottom = 87.5
+grow_horizontal = 2
+
+[node name="ColorRect" type="ColorRect" parent="power_up"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -82.5
+offset_top = -82.5
+offset_right = 82.5
+offset_bottom = 82.5
+grow_horizontal = 2
+color = Color(0.152941, 0.133333, 0.231373, 1)
+
+[node name="sprites" type="Node2D" parent="power_up"]
+
+[node name="rocket" type="Sprite2D" parent="power_up/sprites"]
+visible = false
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("3_5jlfu")
+
+[node name="shrink" type="Node2D" parent="power_up/sprites"]
+visible = false
+texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="power_up/sprites/shrink"]
+modulate = Color(1, 1, 1, 0.403922)
+texture = ExtResource("4_wyc5r")
+
+[node name="Sprite2D2" type="Sprite2D" parent="power_up/sprites/shrink"]
+modulate = Color(1, 1, 1, 0.615686)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_wyc5r")
+
+[node name="Sprite2D3" type="Sprite2D" parent="power_up/sprites/shrink"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_wyc5r")
+
+[node name="tank" type="Sprite2D" parent="power_up/sprites"]
+visible = false
+texture_filter = 1
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_0rb5s")
+
+[connection signal="timeout" from="Timer_time" to="." method="_on_timer_time_timeout"]

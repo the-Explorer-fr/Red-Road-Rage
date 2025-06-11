@@ -1,0 +1,111 @@
+[gd_scene load_steps=7 format=3 uid="uid://duirg7mh4w1x"]
+
+[ext_resource type="Script" path="res://scenes/bot/low_car/low_car.gd" id="1_0hg8x"]
+[ext_resource type="Texture2D" uid="uid://cw443v17268v" path="res://elements/car_bot/car_low/car_1/car_low_3.png" id="1_fn31t"]
+[ext_resource type="Texture2D" uid="uid://8p1jgb7xx52v" path="res://elements/car_bot/car_low/car_1/car_low_4.png" id="3_ld60l"]
+[ext_resource type="Texture2D" uid="uid://ot8cv6isp15g" path="res://elements/car_bot/car_low/car_1/car_low_5.png" id="4_ccoiy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qevkj"]
+size = Vector2(550, 144)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqkox"]
+size = Vector2(1200, 200)
+
+[node name="low_car" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_0hg8x")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="red_truck" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("1_fn31t")
+
+[node name="orange_truck" type="Sprite2D" parent="Sprites"]
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_ld60l")
+
+[node name="white_truck" type="Sprite2D" parent="Sprites"]
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("4_ccoiy")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(1.4, 1.4)
+polygon = PackedVector2Array(-165, -50, -165, -40, -175, -40, -175, 40, -165, 40, -165, 50, -115, 50, -115, 40, 45, 40, 45, 50, 75, 50, 75, 40, 95, 40, 95, 30, 105, 30, 105, 40, 115, 40, 115, 50, 145, 50, 145, 40, 175, 40, 175, -40, 145, -40, 145, -50, 115, -50, 115, -40, 105, -40, 105, -30, 95, -30, 95, -40, 75, -40, 75, -50, 45, -50, 45, -40, -115, -40, -115, -50)
+
+[node name="Area2D_car" type="Area2D" parent="."]
+light_mask = 2
+visibility_layer = 0
+scale = Vector2(1.4, 1.4)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D_car"]
+polygon = PackedVector2Array(-165, -50, -165, -40, -175, -40, -175, 40, -165, 40, -165, 50, -115, 50, -115, 40, 45, 40, 45, 50, 75, 50, 75, 40, 95, 40, 95, 30, 105, 30, 105, 40, 115, 40, 115, 50, 145, 50, 145, 40, 175, 40, 175, -40, 145, -40, 145, -50, 115, -50, 115, -40, 105, -40, 105, -30, 95, -30, 95, -40, 75, -40, 75, -50, 45, -50, 45, -40, -115, -40, -115, -50)
+
+[node name="Area2D_front" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_front"]
+offset_left = 253.0
+offset_top = -71.0
+offset_right = 803.0
+offset_bottom = 72.0
+color = Color(0.498039, 1, 1, 0.603922)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_front"]
+position = Vector2(530, 1)
+shape = SubResource("RectangleShape2D_qevkj")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Area2D_left" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_left"]
+offset_left = -601.0
+offset_top = -324.0
+offset_right = 599.0
+offset_bottom = -124.0
+color = Color(0.513726, 1, 1, 0.662745)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_left"]
+position = Vector2(0, -225)
+shape = SubResource("RectangleShape2D_qqkox")
+
+[node name="Area2D_right" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_right"]
+offset_left = -599.0
+offset_top = 125.0
+offset_right = 601.0
+offset_bottom = 325.0
+color = Color(0, 0.694118, 0.694118, 0.490196)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_right"]
+position = Vector2(0, 225)
+shape = SubResource("RectangleShape2D_qqkox")
+debug_color = Color(0.478431, 0.866667, 1, 0.627451)
+
+[node name="front" type="Marker2D" parent="."]
+position = Vector2(245, 0)
+
+[node name="back" type="Marker2D" parent="."]
+position = Vector2(-245, 0)

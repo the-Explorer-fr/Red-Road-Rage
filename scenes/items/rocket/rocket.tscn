@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://wnv0cqwwepeg"]
+
+[ext_resource type="Script" path="res://scenes/items/rocket/rocket.gd" id="1_pjlv8"]
+[ext_resource type="Texture2D" uid="uid://ciikfl8876kcf" path="res://elements/power_up/rocket.png" id="1_u44j3"]
+[ext_resource type="Texture2D" uid="uid://drucg4yepbuey" path="res://elements/light/78228-light-luz-wallpaper-destello-desktop-download-free-image.png" id="1_uv4ri"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tof1p"]
+radius = 30.0
+height = 136.0
+
+[node name="rocket" type="Area2D"]
+collision_layer = 16
+script = ExtResource("1_pjlv8")
+
+[node name="light" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_uv4ri")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("1_u44j3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_tof1p")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

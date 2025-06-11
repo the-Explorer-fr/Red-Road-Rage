@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3yldnkl2e13u"]
+
+[ext_resource type="Script" path="res://scenes/menus/game_over_menu.gd" id="1_8e35a"]
+[ext_resource type="PackedScene" uid="uid://b37442cxre0tj" path="res://scenes/background/background.tscn" id="1_ou2b2"]
+[ext_resource type="FontFile" uid="uid://d2tdghn42yyl0" path="res://font/SuperMario256.ttf" id="2_h6x77"]
+[ext_resource type="AudioStream" uid="uid://bik6l54xrvcao" path="res://elements/music/lose.mp3" id="4_ctvjd"]
+
+[sub_resource type="Theme" id="Theme_iv30p"]
+default_font = ExtResource("2_h6x77")
+default_font_size = 90
+
+[node name="Game_over_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8e35a")
+
+[node name="background" parent="." instance=ExtResource("1_ou2b2")]
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 312.0
+offset_right = 1105.0
+offset_bottom = 583.0
+scale = Vector2(1.6, 1.6)
+
+[node name="restart_button" type="Button" parent="VBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../back_main_menu_button")
+theme = SubResource("Theme_iv30p")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Restart"
+flat = true
+icon_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="back_main_menu_button" type="Button" parent="VBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+focus_neighbor_top = NodePath("../restart_button")
+focus_neighbor_bottom = NodePath("../../quit_button")
+theme = SubResource("Theme_iv30p")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "menu"
+flat = true
+icon_alignment = 1
+
+[node name="quit_button" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1662.0
+offset_top = 957.0
+offset_right = 1908.0
+offset_bottom = 1056.0
+theme = SubResource("Theme_iv30p")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "quit"
+flat = true
+icon_alignment = 1
+
+[node name="loose" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ctvjd")
+
+[connection signal="pressed" from="VBoxContainer2/restart_button" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/back_main_menu_button" to="." method="_on_back_main_menu_button_pressed"]
+[connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]

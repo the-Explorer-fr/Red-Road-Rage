@@ -1,0 +1,152 @@
+[gd_scene load_steps=13 format=3 uid="uid://b8tkrst5uk2wo"]
+
+[ext_resource type="Script" path="res://scenes/bot/low_car/low_car.gd" id="1_sjlsv"]
+[ext_resource type="Texture2D" uid="uid://bo3m4nnmtcpaq" path="res://elements/car_bot/car_mid/car_1/car_mid_1.png" id="2_nejrj"]
+[ext_resource type="Texture2D" uid="uid://bhw1cf1p2lp5n" path="res://elements/car_bot/car_mid/car_1/car_mid_2.png" id="3_7splq"]
+[ext_resource type="Texture2D" uid="uid://f13t522yaycf" path="res://elements/car_bot/car_mid/car_1/car_mid_3.png" id="4_wux3a"]
+[ext_resource type="Texture2D" uid="uid://co06bpwq36dmr" path="res://elements/car_bot/car_mid/car_1/car_mid_4.png" id="5_xqcpi"]
+[ext_resource type="Texture2D" uid="uid://deoktgvblhco5" path="res://elements/car_bot/car_low/trailers/trailer_2.png" id="6_6omrh"]
+[ext_resource type="Texture2D" uid="uid://damw3dwmeyn3s" path="res://elements/car_bot/car_low/trailers/trailer_1.png" id="6_oypmt"]
+[ext_resource type="Script" path="res://scenes/bot/low_car/Sprites_trailer.gd" id="6_ql5xu"]
+[ext_resource type="Texture2D" uid="uid://bv2scv8ojkiga" path="res://elements/car_bot/car_low/trailers/trailer_3.png" id="7_50l3r"]
+[ext_resource type="Texture2D" uid="uid://ch86wkkb8118l" path="res://elements/car_bot/car_low/trailers/trailer_4.png" id="9_y21hx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qevkj"]
+size = Vector2(550, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t640d"]
+size = Vector2(1100, 200)
+
+[node name="low_car_2" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_sjlsv")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="red_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(90, 0)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("2_nejrj")
+
+[node name="grey_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(90, 0)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_7splq")
+
+[node name="blue_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(90, 0)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("4_wux3a")
+
+[node name="white_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(90, 0)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("5_xqcpi")
+
+[node name="Sprites_trailer" type="Node2D" parent="."]
+position = Vector2(-127, 0)
+scale = Vector2(1.4, 1.4)
+script = ExtResource("6_ql5xu")
+
+[node name="trailer_1" type="Sprite2D" parent="Sprites_trailer"]
+texture_filter = 1
+texture = ExtResource("6_oypmt")
+
+[node name="trailer_2" type="Sprite2D" parent="Sprites_trailer"]
+texture_filter = 1
+texture = ExtResource("6_6omrh")
+
+[node name="trailer_3" type="Sprite2D" parent="Sprites_trailer"]
+texture_filter = 1
+texture = ExtResource("7_50l3r")
+
+[node name="trailer_4" type="Sprite2D" parent="Sprites_trailer"]
+texture_filter = 1
+texture = ExtResource("9_y21hx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-1, -56, -1, -70, 41, -70, 41, -56, 111, -56, 111, -70, 153, -70, 153, -56, 181, -56, 181, -42, 195, -42, 195, 42, 181, 42, 181, 56, 153, 56, 153, 70, 111, 70, 111, 56, 41, 56, 41, 70, -1, 70, -1, 56, -15, 56, -15, 21, -43, 21, -43, 63, -155, 63, -155, 77, -197, 77, -197, 63, -239, 63, -239, -63, -197, -63, -197, -77, -155, -77, -155, -63, -43, -63, -43, -21, -15, -21, -15, -56)
+
+[node name="Area2D_car" type="Area2D" parent="."]
+light_mask = 2
+visibility_layer = 0
+scale = Vector2(1.4, 1.4)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D_car"]
+polygon = PackedVector2Array(-30.7143, -15, -10.7143, -15, -10.7143, -40, -0.714286, -40, -0.714286, -50, 29.2857, -50, 29.2857, -40, 79.2857, -40, 79.2857, -50, 109.286, -50, 109.286, -40, 129.286, -40, 129.286, -30, 139.286, -30, 139.286, 30, 129.286, 30, 129.286, 40, 109.286, 40, 109.286, 50, 79.2857, 50, 79.2857, 40, 29.2857, 40, 29.2857, 50, -0.714286, 50, -0.714286, 40, -10.7143, 40, -10.7143, 15, -30.7143, 15, -30.7143, 45, -110.714, 45, -110.714, 55, -140.714, 55, -140.714, 45, -170.714, 45, -170.714, -45, -140.714, -45, -140.714, -55, -110.714, -55, -110.714, -45, -30.7143, -45)
+
+[node name="Area2D_front" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_front"]
+offset_left = 205.0
+offset_top = -80.0
+offset_right = 755.0
+offset_bottom = 80.0
+color = Color(0.513726, 1, 1, 0.639216)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_front"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(480, 0)
+shape = SubResource("RectangleShape2D_qevkj")
+
+[node name="Area2D_left" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_left"]
+offset_left = -551.0
+offset_top = -322.0
+offset_right = 549.0
+offset_bottom = -122.0
+color = Color(0.490196, 1, 1, 0.635294)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_left"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(0, -225)
+shape = SubResource("RectangleShape2D_t640d")
+
+[node name="Area2D_right" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_right"]
+offset_left = -553.0
+offset_top = 126.0
+offset_right = 547.0
+offset_bottom = 326.0
+color = Color(0.537255, 1, 1, 0.690196)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_right"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(0, 225)
+shape = SubResource("RectangleShape2D_t640d")
+
+[node name="front" type="Marker2D" parent="."]
+position = Vector2(195, 0)
+
+[node name="back" type="Marker2D" parent="."]
+position = Vector2(-155, 0)

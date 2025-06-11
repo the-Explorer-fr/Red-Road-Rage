@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://b1ayynaiewvem"]
+
+[ext_resource type="Texture2D" uid="uid://ciikfl8876kcf" path="res://elements/power_up/rocket.png" id="1_0a2n6"]
+[ext_resource type="Script" path="res://scenes/items/rocket/rocket_launched.gd" id="1_k5phl"]
+[ext_resource type="Texture2D" uid="uid://bguh1bee06jbw" path="res://elements/Flame/Flame_1/flame_1.png" id="2_dduob"]
+[ext_resource type="Texture2D" uid="uid://deb63gmu45kwo" path="res://elements/Flame/Flame_1/flame_2.png" id="3_53ovs"]
+[ext_resource type="AudioStream" uid="uid://cqcvy8dqduggf" path="res://elements/sound/rocket.mp3" id="5_i8jx8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7beog"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dduob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_53ovs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u7esn"]
+radius = 21.0
+height = 94.0
+
+[node name="rocket_launched" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_k5phl")
+
+[node name="flames" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-50, 0)
+scale = Vector2(1, 0.5)
+sprite_frames = SubResource("SpriteFrames_7beog")
+autoplay = "default"
+frame = 1
+frame_progress = 0.860907
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("1_0a2n6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_u7esn")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_i8jx8")
+autoplay = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

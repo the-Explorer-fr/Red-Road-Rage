@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm4d46l8cudfx"]
+
+[ext_resource type="Script" path="res://scenes/items/rocket/rocket.gd" id="1_h1v2o"]
+[ext_resource type="Texture2D" uid="uid://drucg4yepbuey" path="res://elements/light/78228-light-luz-wallpaper-destello-desktop-download-free-image.png" id="2_wij8g"]
+[ext_resource type="Texture2D" uid="uid://uoifgnwtjydc" path="res://elements/car_player/tank.png" id="3_lxjxm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ftt58"]
+size = Vector2(145, 75)
+
+[node name="tank" type="Area2D"]
+collision_layer = 16
+script = ExtResource("1_h1v2o")
+
+[node name="light" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_wij8g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_lxjxm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ftt58")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

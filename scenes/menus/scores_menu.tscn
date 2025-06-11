@@ -1,0 +1,329 @@
+[gd_scene load_steps=7 format=3 uid="uid://diioawdumig3p"]
+
+[ext_resource type="FontFile" uid="uid://d2tdghn42yyl0" path="res://font/SuperMario256.ttf" id="1_4sith"]
+[ext_resource type="Script" path="res://scenes/menus/scores_menu.gd" id="1_077v6"]
+[ext_resource type="AudioStream" uid="uid://dwyw8sgriamth" path="res://elements/music/scores.mp3" id="3_daklk"]
+
+[sub_resource type="Theme" id="Theme_egfcj"]
+default_font = ExtResource("1_4sith")
+default_font_size = 100
+
+[sub_resource type="Theme" id="Theme_xxeqv"]
+default_font = ExtResource("1_4sith")
+default_font_size = 73
+
+[sub_resource type="Theme" id="Theme_vutte"]
+default_font = ExtResource("1_4sith")
+default_font_size = 90
+
+[node name="scores_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_077v6")
+
+[node name="background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.72549, 0.72549, 0.792157, 1)
+metadata/_edit_lock_ = true
+
+[node name="rect_score" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 180.0
+offset_right = 400.0
+offset_bottom = 980.0
+grow_horizontal = 2
+color = Color(0.360784, 0.360784, 0.494118, 1)
+
+[node name="scores_label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+offset_left = 756.0
+offset_top = 88.0
+offset_right = 1165.0
+offset_bottom = 188.0
+theme = SubResource("Theme_egfcj")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Scores"
+
+[node name="scores_container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 30.0
+offset_top = 188.0
+offset_right = 439.0
+offset_bottom = 976.0
+grow_horizontal = 2
+
+[node name="score_1" type="Label" parent="scores_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+text = "0 : 00"
+
+[node name="score_2" type="Label" parent="scores_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0.670588, 0.694118, 0.733333, 1)
+text = "0 : 00"
+
+[node name="score_3" type="Label" parent="scores_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0.890196, 0.545098, 0.0784314, 1)
+text = "0 : 00"
+
+[node name="score_4" type="Label" parent="scores_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0 : 00"
+
+[node name="score_5" type="Label" parent="scores_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0 : 00"
+
+[node name="score_6" type="Label" parent="scores_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0 : 00"
+
+[node name="score_7" type="Label" parent="scores_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0 : 00"
+
+[node name="score_8" type="Label" parent="scores_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0 : 00"
+
+[node name="score_9" type="Label" parent="scores_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0 : 00"
+
+[node name="score_10" type="Label" parent="scores_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0 : 00"
+
+[node name="names_container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 188.0
+offset_right = 88.0
+offset_bottom = 976.0
+grow_horizontal = 2
+
+[node name="name_1" type="Label" parent="names_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+text = "AAA"
+
+[node name="name_2" type="Label" parent="names_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0.670588, 0.694118, 0.733333, 1)
+text = "AAA"
+
+[node name="name_3" type="Label" parent="names_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0.890196, 0.545098, 0.0784314, 1)
+text = "AAA"
+
+[node name="name_4" type="Label" parent="names_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "AAA"
+
+[node name="name_5" type="Label" parent="names_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "AAA"
+
+[node name="name_6" type="Label" parent="names_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "AAA"
+
+[node name="name_7" type="Label" parent="names_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "AAA"
+
+[node name="name_8" type="Label" parent="names_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "AAA"
+
+[node name="name_9" type="Label" parent="names_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "AAA"
+
+[node name="name_10" type="Label" parent="names_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "AAA"
+
+[node name="numbers" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -370.0
+offset_top = 188.0
+offset_right = -214.0
+offset_bottom = 976.0
+grow_horizontal = 2
+
+[node name="1" type="Label" parent="numbers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+text = "#1"
+
+[node name="2" type="Label" parent="numbers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0.670588, 0.694118, 0.733333, 1)
+text = "#2"
+
+[node name="3" type="Label" parent="numbers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0.890196, 0.545098, 0.0784314, 1)
+text = "#3"
+
+[node name="4" type="Label" parent="numbers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "#4
+"
+
+[node name="5" type="Label" parent="numbers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "#5
+"
+
+[node name="6" type="Label" parent="numbers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "#6"
+
+[node name="7" type="Label" parent="numbers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "#7"
+
+[node name="8" type="Label" parent="numbers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "#8"
+
+[node name="9" type="Label" parent="numbers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "#9
+"
+
+[node name="10" type="Label" parent="numbers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_xxeqv")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "#10"
+
+[node name="back_main_menu_button" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -340.0
+offset_top = -130.0
+offset_right = -48.0
+offset_bottom = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = SubResource("Theme_vutte")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "menu"
+flat = true
+icon_alignment = 1
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_daklk")
+volume_db = -25.0
+
+[connection signal="pressed" from="back_main_menu_button" to="." method="_on_back_main_menu_button_pressed"]

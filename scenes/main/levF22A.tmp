@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbdrh1xlcdf7k"]
+
+[ext_resource type="Script" path="res://scenes/main/level.gd" id="1_cstsy"]
+[ext_resource type="PackedScene" uid="uid://b37442cxre0tj" path="res://scenes/background/background.tscn" id="1_d65qi"]
+[ext_resource type="PackedScene" uid="uid://dqaew30jkmb1x" path="res://scenes/player/player.tscn" id="2_j564k"]
+[ext_resource type="PackedScene" uid="uid://bmxuw76e6m48s" path="res://scenes/bot/bot.tscn" id="4_c3jpt"]
+[ext_resource type="AudioStream" uid="uid://crporyp2h4uuw" path="res://elements/sound/start.ogg" id="5_bmguu"]
+[ext_resource type="PackedScene" uid="uid://d1w7frtfpwgbn" path="res://scenes/main/ui_in_game.tscn" id="6_4rv4x"]
+
+[node name="level" type="Node2D"]
+script = ExtResource("1_cstsy")
+
+[node name="background" parent="." instance=ExtResource("1_d65qi")]
+
+[node name="player" parent="." instance=ExtResource("2_j564k")]
+position = Vector2(255, 642)
+
+[node name="bot" parent="." instance=ExtResource("4_c3jpt")]
+
+[node name="start" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_bmguu")
+
+[node name="UI_in_game" parent="." instance=ExtResource("6_4rv4x")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = 960.0
+offset_right = 960.0
+grow_vertical = 1
+
+[connection signal="player_dead" from="player" to="." method="_on_player_player_dead"]

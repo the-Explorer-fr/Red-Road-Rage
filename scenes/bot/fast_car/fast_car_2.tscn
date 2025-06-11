@@ -1,0 +1,124 @@
+[gd_scene load_steps=8 format=3 uid="uid://cpshwbv6eu1qn"]
+
+[ext_resource type="Script" path="res://scenes/bot/fast_car/fast_car.gd" id="1_m4xa2"]
+[ext_resource type="Texture2D" uid="uid://rfmvvpwjamd4" path="res://elements/car_bot/car_fast/car_2/car_fast_3.png" id="2_8ngis"]
+[ext_resource type="Texture2D" uid="uid://000dq5bqn3cj" path="res://elements/car_bot/car_fast/car_2/car_fast_4.png" id="3_lgimo"]
+[ext_resource type="Texture2D" uid="uid://cwdkxfvxrrwnw" path="res://elements/car_bot/car_fast/car_2/car_fast_1.png" id="4_lb01m"]
+[ext_resource type="Texture2D" uid="uid://bbhlf7lhc5khv" path="res://elements/car_bot/car_fast/car_2/car_fast_2.png" id="5_x1pdn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tejmu"]
+size = Vector2(725, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pbvfr"]
+size = Vector2(1450, 200)
+
+[node name="fast_car_2" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_m4xa2")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="red_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("2_8ngis")
+
+[node name="orange_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_lgimo")
+
+[node name="green_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("4_lb01m")
+
+[node name="blue_car" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("5_x1pdn")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(1.4, 1.4)
+polygon = PackedVector2Array(-60, -50, -60, -40, -80, -40, -80, 40, -60, 40, -60, 50, -30, 50, -30, 40, 20, 40, 20, 50, 50, 50, 50, 40, 60, 40, 60, 30, 70, 30, 70, 20, 80, 20, 80, -20, 70, -20, 70, -30, 60, -30, 60, -40, 50, -40, 50, -50, 20, -50, 20, -40, -30, -40, -30, -50)
+
+[node name="Area2D_car" type="Area2D" parent="."]
+light_mask = 2
+visibility_layer = 0
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D_car"]
+scale = Vector2(1.4, 1.4)
+polygon = PackedVector2Array(-60, -50, -60, -40, -80, -40, -80, 40, -60, 40, -60, 50, -30, 50, -30, 40, 20, 40, 20, 50, 50, 50, 50, 40, 50, 30, 60, 30, 70, 30, 70, 30, 70, 20, 80, 20, 80, -20, 70, -20, 70, -30, 60, -30, 60, -40, 50, -40, 50, -50, 20, -50, 20, -40, -30, -40, -30, -50)
+
+[node name="Area2D_front" type="Area2D" parent="."]
+visible = false
+light_mask = 2
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_front"]
+offset_left = 115.0
+offset_top = -80.0
+offset_right = 840.0
+offset_bottom = 80.0
+color = Color(1, 0.258824, 1, 0.615686)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_front"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(480, 0)
+shape = SubResource("RectangleShape2D_tejmu")
+
+[node name="Area2D_left" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_left"]
+offset_left = -334.0
+offset_top = -324.0
+offset_right = 1116.0
+offset_bottom = -124.0
+color = Color(1, 0.435294, 1, 0.635294)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_left"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(390, -225)
+shape = SubResource("RectangleShape2D_pbvfr")
+
+[node name="Area2D_right" type="Area2D" parent="."]
+visible = false
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="ColorRect" type="ColorRect" parent="Area2D_right"]
+offset_left = -340.0
+offset_top = 125.0
+offset_right = 1110.0
+offset_bottom = 325.0
+color = Color(1, 0.439216, 1, 0.690196)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_right"]
+light_mask = 8
+visibility_layer = 2
+position = Vector2(390, 225)
+shape = SubResource("RectangleShape2D_pbvfr")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="front" type="Marker2D" parent="."]
+position = Vector2(112, 0)
+
+[node name="back" type="Marker2D" parent="."]
+position = Vector2(-112, 0)

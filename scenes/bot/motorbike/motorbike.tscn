@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://bl0a801rypx5l"]
+
+[ext_resource type="Texture2D" uid="uid://c6ot5jaj22ufn" path="res://elements/car_bot/motorbike/motorbike_1.png" id="1_c317g"]
+[ext_resource type="Script" path="res://scenes/bot/motorbike/motorbike.gd" id="1_vh36q"]
+[ext_resource type="Texture2D" uid="uid://vwycx1yqrtfa" path="res://elements/car_bot/motorbike/motorbike_2.png" id="2_j6dcw"]
+[ext_resource type="Texture2D" uid="uid://6sndgc12nqc8" path="res://elements/car_bot/motorbike/motorbike_3.png" id="3_3kxvn"]
+[ext_resource type="Texture2D" uid="uid://syiyxhw4osjd" path="res://elements/car_bot/motorbike/motorbike_4.png" id="4_5rq6y"]
+[ext_resource type="Texture2D" uid="uid://dtbic6kc0r5fc" path="res://elements/car_bot/motorbike/motorbike_5.png" id="5_liwan"]
+
+[node name="motorbike" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_vh36q")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="orange_motorbike" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_c317g")
+
+[node name="red_motorbike" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_j6dcw")
+
+[node name="blue_motorbike" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_3kxvn")
+
+[node name="gray_motorbike" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("4_5rq6y")
+
+[node name="green_motorbike" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_liwan")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(0.86, 0.86)
+polygon = PackedVector2Array(-105, -13, -80, -17, -39, -17, -39, -22, -33, -26, -9, -26, 7, -38, 33, -38, 33, -42, 44, -42, 47, -36, 51, -21, 76, -17, 80, -13, 105, -13, 105, 13, 80, 13, 76, 17, 50, 21, 46, 38, 42, 42, 34, 42, 34, 38, 11, 38, -9, 26, -33, 26, -39, 21, -39, 17, -80, 17, -105, 12)
+
+[node name="Area2D_car" type="Area2D" parent="."]
+light_mask = 2
+visibility_layer = 0
+scale = Vector2(1.4, 1.4)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D_car"]
+light_mask = 2
+visibility_layer = 2
+scale = Vector2(0.714286, 0.714286)
+polygon = PackedVector2Array(-105, 13, -105, -13, -80, -13, -80, -17, -38, -17, -38, -21, -34, -21, -34, -26, -16, -26, -16, -21, -9, -21, -9, -26, 0, -34, 9, -38, 33, -38, 33, -42, 42, -42, 46, -38, 47, -33, 43, -33, 43, -21, 51, -21, 51, -17, 75, -17, 80, -13, 106, -13, 106, 13, 80, 13, 75, 17, 51, 17, 51, 21, 43, 21, 43, 33, 47, 33, 47, 38, 42, 42, 33, 42, 33, 38, 12, 38, 12, 34, 5, 34, -9, 26, -9, 21, -16, 21, -16, 26, -34, 26, -34, 21, -38, 21, -38, 17, -80, 17, -80, 13)
+
+[node name="front" type="Marker2D" parent="."]
+position = Vector2(90, 0)
+
+[node name="back" type="Marker2D" parent="."]
+position = Vector2(-90, 0)

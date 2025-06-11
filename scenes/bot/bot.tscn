@@ -1,0 +1,167 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmxuw76e6m48s"]
+
+[ext_resource type="Script" path="res://scenes/bot/bots.gd" id="1_b7y3p"]
+[ext_resource type="Script" path="res://scenes/bot/markers/marker_1.gd" id="2_086v2"]
+[ext_resource type="Script" path="res://scenes/bot/markers/markers.gd" id="2_wig26"]
+[ext_resource type="Script" path="res://scenes/bot/markers/marker_2.gd" id="3_0gwdq"]
+[ext_resource type="Script" path="res://scenes/bot/markers/marker_3.gd" id="4_kvsww"]
+
+[sub_resource type="GDScript" id="GDScript_ibqn1"]
+script/source = "extends Node2D
+
+var explosion_scene = preload(\"res://scenes/main/explosion.tscn\")
+
+var low_car_scene: PackedScene = preload(\"res://scenes/bot/low_car/low_car.tscn\")
+var low_car_scene_2: PackedScene = preload(\"res://scenes/bot/low_car/low_car_2.tscn\")
+var mid_car_scene: PackedScene = preload(\"res://scenes/bot/mid_car/mid_car.tscn\")
+var mid_car_scene_2: PackedScene = preload(\"res://scenes/bot/mid_car/mid_car_2.tscn\")
+var fast_car_scene: PackedScene = preload(\"res://scenes/bot/fast_car/fast_car.tscn\")
+var fast_car_scene_2: PackedScene = preload(\"res://scenes/bot/fast_car/fast_car_2.tscn\")
+var fast_car_scene_3: PackedScene = preload(\"res://scenes/bot/fast_car/fast_car_3.tscn\")
+
+var motorbike_scene: PackedScene = preload(\"res://scenes/bot/motorbike/motorbike.tscn\")
+
+var markers_motorbikes = [510, 780]
+
+var number_bot: int = 0
+@export var nombre_bot_max: int = 6
+
+func _ready():
+	generate_new_bot_car()
+	$Timer_car.start()
+	$Timer_motorbike.start()
+
+func _process(_delta):
+	bot_out()
+
+func generate_new_bot_car():
+	var random: int = randi() % 3
+	var car
+	if random == 0:
+		random = randi() % 100
+		if random < 47:
+			car = fast_car_scene.instantiate()
+		elif random < 94:
+			car = fast_car_scene_2.instantiate()
+		else:
+			car = fast_car_scene_3.instantiate()
+
+	elif random == 1:
+		random = randi() % 2
+		if random == 0:
+			car = mid_car_scene.instantiate()
+		elif random == 1:
+			car = mid_car_scene_2.instantiate()
+
+	elif random == 2:
+		random = randi() % 2
+		if random == 0:
+			car = low_car_scene.instantiate()
+		elif random == 1:
+			car = low_car_scene_2.instantiate()
+
+	get_node(\"bots_car\").call_deferred(\"add_child\", car)
+	generation_position_car(car)
+
+func generate_new_bot_motorbike(pos_y):
+	var motorbike = motorbike_scene.instantiate()
+	get_node(\"bots_motorbike\").call_deferred(\"add_child\", motorbike)
+	generation_position_motorbike(pos_y, motorbike)
+
+func generation_position_car(body):
+	get_node(\"markers\").collision()
+	var spawn_markers = $markers.get_children()
+	var marker = spawn_markers[randi() % spawn_markers.size()]
+	marker.speed = body.speed
+	body.position = marker.position
+	body.position_y_aim = marker.position.y
+	marker.position.x = body.get_node(\"front\").position.x + 1000
+
+func generation_position_motorbike(pos_y, body):
+	body.position.y = pos_y
+
+func bot_out():
+	var bots_car = get_node(\"bots_car\").get_children()
+	for bot in bots_car:
+		if bot.position.x < -800:
+			bot.queue_free()
+			generate_new_bot_car()
+
+func _on_timer_car_timeout():
+	generate_new_bot_car()
+	number_bot += 1
+	if number_bot < nombre_bot_max:
+		if number_bot < 4:
+			$Timer_car.wait_time += 5
+		$Timer_car.start()
+
+func _on_timer_motorbike_timeout():
+	generate_new_bot_motorbike(markers_motorbikes[0])
+	generate_new_bot_motorbike(markers_motorbikes[1])
+
+func regeneration(body_pos_y):
+	if body_pos_y == markers_motorbikes[0]:
+		generate_new_bot_motorbike(body_pos_y)
+	if body_pos_y == markers_motorbikes[1]:
+		generate_new_bot_motorbike(body_pos_y)
+	else:
+		generate_new_bot_car()
+
+func _on_rockets_launched_create_new_bot(body_pos_y):
+	regeneration(body_pos_y)
+
+func explosion_kill(pos):
+	var explosion = explosion_scene.instantiate()
+	get_node(\"explosions\").add_child(explosion)
+	explosion.position = pos
+
+func _on_player_kill(body):
+	explosion_kill(body.position)
+	regeneration(body.position.y)
+	body.queue_free()
+
+
+func _on_rockets_launched_kill(body):
+	explosion_kill(body.position)
+	regeneration(body.position.y)
+	body.queue_free()
+"
+
+[node name="bot" type="Node2D"]
+script = SubResource("GDScript_ibqn1")
+
+[node name="Timer_car" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="bots_car" type="Node2D" parent="."]
+script = ExtResource("1_b7y3p")
+
+[node name="Timer_middle_line" type="Timer" parent="."]
+
+[node name="Timer_motorbike" type="Timer" parent="."]
+wait_time = 40.0
+one_shot = true
+
+[node name="bots_motorbike" type="Node2D" parent="."]
+
+[node name="markers" type="Node2D" parent="."]
+script = ExtResource("2_wig26")
+
+[node name="Marker2D" type="Marker2D" parent="markers"]
+position = Vector2(2300, 375)
+script = ExtResource("2_086v2")
+
+[node name="Marker2D2" type="Marker2D" parent="markers"]
+position = Vector2(2300, 645)
+script = ExtResource("3_0gwdq")
+
+[node name="Marker2D3" type="Marker2D" parent="markers"]
+position = Vector2(2300, 915)
+script = ExtResource("4_kvsww")
+
+[node name="explosions" type="Node2D" parent="."]
+
+[connection signal="timeout" from="Timer_car" to="." method="_on_timer_car_timeout"]
+[connection signal="timeout" from="Timer_middle_line" to="bots_car" method="_on_timer_middle_line_timeout"]
+[connection signal="timeout" from="Timer_motorbike" to="." method="_on_timer_motorbike_timeout"]
